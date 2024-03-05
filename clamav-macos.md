@@ -19,7 +19,7 @@ sed -i '' 's/Example/# Example/' /usr/local/etc/clamav/clamd.conf
 
 crontab -e -u root
 
-# put below line, save and exit (esc :wq)
+# put below lines in the crontab file, save and exit (esc :wq)
 0 12 * * * /usr/local/clamav/bin/freshclam > /dev/null 2>&1
 10 12 * * * /usr/local/bin/clamav/clamscan -r /Users/USERNAME -i -o -l "/var/log/clamscan-$(date +\%b-\%d-\%Y).log" > /dev/null 2>&1 # Replace your username
 
