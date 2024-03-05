@@ -153,7 +153,7 @@ sudo systemctl enable --now clamav-daemon
 # Add a cron job to scan the home directory every day at 12:10 PM
 echo "Adding a cron job to scan the home directory every day at 12:10 PM..."
 
-crontab -l | { cat; echo '10 20 * * * /usr/bin/clamscan --exclude-dir=/home/yyildirim/.clamtk/viruses --exclude-dir=smb4k --exclude-dir=/run/user/yyildirim/gvfs --exclude-dir=/home/yyildirim/.gvfs --exclude-dir=.thunderbird --exclude-dir=.mozilla-thunderbird --exclude-dir=.evolution --exclude-dir=Mail --exclude-dir=kmail -i  --detect-pua -r /home/$(whoami) --log="$HOME/.clamtk/history/$(date +\%b-\%d-\%Y).log" 2>/dev/null'; } | crontab -
+crontab -l | { cat; echo '10 20 * * * /usr/bin/clamscan --exclude-dir=$HOME/.clamtk/viruses --exclude-dir=smb4k --exclude-dir=/run/user/$(whoami)/gvfs --exclude-dir=$HOME/.gvfs --exclude-dir=.thunderbird --exclude-dir=.mozilla-thunderbird --exclude-dir=.evolution --exclude-dir=Mail --exclude-dir=kmail -i  --detect-pua -r /home/$(whoami) --log="$HOME/.clamtk/history/$(date +\%b-\%d-\%Y).log" 2>/dev/null'; } | crontab -
 
 echo "Cron job has been added successfully. You can change its schedule by running 'crontab -e'."
 
