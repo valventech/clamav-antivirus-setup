@@ -151,6 +151,9 @@ sudo freshclam
 # Start the clamav daemon
 sudo systemctl enable --now clamav-daemon
 
+echo "Creating the required directories..."
+mkdir -p $HOME/.clamtk/{viruses,history}
+
 # Add a cron job to scan the home directory every day at 12:10 PM
 echo "Adding a cron job to scan the home directory every day at 12:10 PM..."
 
