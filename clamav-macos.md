@@ -15,7 +15,7 @@ sudo freshclam
 
 cp /usr/local/clamav/etc/clamd.conf.sample /usr/local/clamav/etc/clamd.conf
 
-sed -i '' 's/Example/# Example/' /usr/local/etc/clamav/clamd.conf
+sed -i 's/Example/# Example/' /usr/local/etc/clamav/clamd.conf
 
 crontab -e -u root
 

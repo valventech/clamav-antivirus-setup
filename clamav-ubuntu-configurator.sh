@@ -10,7 +10,7 @@
 sudo apt-get update
 
 # Install the clamav antivirus software and the clamtk GUI
-sudo apt-get install clamav clamav-daemon clamtk
+sudo apt-get install -y clamav clamav-daemon clamtk
 
 echo "ClamAV packages has been installed successfully."
 
@@ -145,7 +145,8 @@ EOF
 
 # Update the virus definitions
 sudo freshclam
-sudo freshclam -d
+#sleep 5
+#sudo freshclam -d
 
 # Start the clamav daemon
 sudo systemctl enable --now clamav-daemon
@@ -153,9 +154,12 @@ sudo systemctl enable --now clamav-daemon
 # Add a cron job to scan the home directory every day at 12:10 PM
 echo "Adding a cron job to scan the home directory every day at 12:10 PM..."
 
-crontab -l | { cat; echo '10 20 * * * /usr/bin/clamscan --exclude-dir=$HOME/.clamtk/viruses --exclude-dir=smb4k --exclude-dir=/run/user/$(whoami)/gvfs --exclude-dir=$HOME/.gvfs --exclude-dir=.thunderbird --exclude-dir=.mozilla-thunderbird --exclude-dir=.evolution --exclude-dir=Mail --exclude-dir=kmail -i  --detect-pua -r /home/$(whoami) --log="$HOME/.clamtk/history/$(date +\%b-\%d-\%Y).log" 2>/dev/null'; } | crontab -
+crontab -l | { cat; echo '10 12 * * * /usr/bin/clamscan --exclude-dir=$HOME/.clamtk/viruses --exclude-dir=smb4k --exclude-dir=/run/user/$(whoami)/gvfs --exclude-dir=$HOME/.gvfs --exclude-dir=.thunderbird --exclude-dir=.mozilla-thunderbird --exclude-dir=.evolution --exclude-dir=Mail --exclude-dir=kmail -i  --detect-pua -r /home/$(whoami) --log="$HOME/.clamtk/history/$(date +\%b-\%d-\%Y).log" 2>/dev/null'; } | crontab -
 
 echo "Cron job has been added successfully. You can change its schedule by running 'crontab -e'."
+
+echo "List of cronjobs:"
+crontab -l
 
 # ------------------------------------------------------------------------------
 # End of Script
