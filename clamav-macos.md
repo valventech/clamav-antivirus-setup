@@ -20,11 +20,13 @@ sed -i 's/Example/# Example/' /usr/local/etc/clamav/clamd.conf
 crontab -e -u root
 
 # put below lines in the crontab file, save and exit (esc :wq)
+# Replace your username in the below lines
 0 12 * * * /usr/local/clamav/bin/freshclam > /dev/null 2>&1
 10 12 * * * /usr/local/bin/clamav/clamscan -r /Users/USERNAME -i -o -l "/var/log/clamscan-$(date +\%b-\%d-\%Y).log" > /dev/null 2>&1 # Replace your username
 
 # Run this line manually for testing. It will scan your home directory and log the result to /var/log/clamscan-<date>.log
 # Accept necessary permissions if prompted
+# Replace your username in the below line
 /usr/local/bin/clamav/clamscan -r /Users/USERNAME -i -o -l "/var/log/clamscan-$(date +\%b-\%d-\%Y).log"  # Replace your username
 
 ```
