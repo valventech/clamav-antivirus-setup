@@ -2,31 +2,29 @@
 
 Execute below lines using an admin account (root)
 
-Install ClamAV either using brew or download from [ClamAV](https://www.clamav.net/downloads)
-
 ```bash
-brew install clamav # skip this step if you have downloaded the package from the website
+brew install clamav
 
-cp /usr/local/clamav/etc/freshclam.conf.sample /usr/local/etc/clamav/freshclam.conf
+cp /opt/homebrew/etc/clamav/freshclam.conf.sample /opt/homebrew/etc/clamav/freshclam.conf
 
-sed -i 's/Example/# Example/' /usr/local/etc/clamav/freshclam.conf
+sed -i 's/Example/# Example/' /opt/homebrew/etc/clamav/freshclam.conf
 
 sudo freshclam
 
-cp /usr/local/clamav/etc/clamd.conf.sample /usr/local/clamav/etc/clamd.conf
+cp /opt/homebrew/etc/clamav/clamd.conf.sample /opt/homebrew/etc/clamav/clamd.conf
 
-sed -i 's/Example/# Example/' /usr/local/etc/clamav/clamd.conf
+sed -i 's/Example/# Example/' /opt/homebrew/etc/clamav/clamd.conf
 
 crontab -e -u root
 
 # put below lines in the crontab file, save and exit (esc :wq)
-# Replace your username in the below lines
-0 12 * * * /usr/local/clamav/bin/freshclam > /dev/null 2>&1
-10 12 * * * /usr/local/bin/clamav/clamscan -r /Users/USERNAME -i -o -l "/var/log/clamscan-$(date +\%b-\%d-\%Y).log" > /dev/null 2>&1 # Replace your username
+# Replace USERNAME with your username in the below lines
+0 12 * * * /opt/homebrew/Cellar/clamav/1.3.0/bin/freshclam > /dev/null 2>&1
+
+10 12 * * * /opt/homebrew/Cellar/clamav/1.3.0/bin/clamscan -r /Users/USERNAME -i -o -l "/var/log/clamscan-$(date +\%b-\%d-\%Y).log" > /dev/null 2>&1
 
 # Run this line manually for testing. It will scan your home directory and log the result to /var/log/clamscan-<date>.log
 # Accept necessary permissions if prompted
 # Replace your username in the below line
-/usr/local/bin/clamav/clamscan -r /Users/USERNAME -i -o -l "/var/log/clamscan-$(date +\%b-\%d-\%Y).log"  # Replace your username
-
+/opt/homebrew/Cellar/clamav/1.3.0/bin/clamscan -r /Users/USERNAME -i -o
 ```
